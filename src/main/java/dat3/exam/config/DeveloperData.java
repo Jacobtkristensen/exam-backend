@@ -50,9 +50,11 @@ public class DeveloperData implements ApplicationRunner {
     }
 
     private void setupDevData() {
+        //Brugere
         Guest guest1 = new Guest("Guest1", passwordUsedByAll, "guest1@kea.dk", "Hans", "Hansen", "12345678");
         guest1.addRole(Role.USER);
         guestRepository.save(guest1);
+        //Admin
         UserWithRoles admin = new UserWithRoles("admin", passwordUsedByAll, "admin@a.dk");
         admin.addRole(Role.ADMIN);
         userWithRolesRepository.save(admin);
@@ -61,7 +63,7 @@ public class DeveloperData implements ApplicationRunner {
         List<Hotel> hotels = new ArrayList<>();
         Random random = new Random();
 
-        // Create hotels using the predefined lists
+        // Lav hoteller ud fra predefinerede lister. Navne er unikke. resten loopes tilfældigt igennem.
         for (int i = 0; i < HotelNameGenerator.HOTEL_NAMES.size(); i++) {
             String name = HotelNameGenerator.HOTEL_NAMES.get(i);
             String street = HotelStreetGenerator.STREETS.get(random.nextInt(HotelStreetGenerator.STREETS.size()));
@@ -74,13 +76,13 @@ public class DeveloperData implements ApplicationRunner {
 
         hotelRepository.saveAll(hotels);
 
-        // Create rooms for each hotel
+        // Lav værelser til hvert hotel
         for (Hotel hotel : hotels) {
             List<Room> rooms = new ArrayList<>();
             int numberOfRooms = 10 + random.nextInt(31); // Random number of rooms between 10 and 40
             for (int i = 1; i <= numberOfRooms; i++) {
                 String roomNumber = String.valueOf(i);
-                int numberOfBeds = 1 + random.nextInt(4); // Random number of beds between 1 and 4
+                int numberOfBeds = 1 + random.nextInt(4);
                 double basePrice = 500.0;
                 double bedPrice = 100.0;
                 Room room = new Room(roomNumber, numberOfBeds, basePrice, bedPrice, hotel);
