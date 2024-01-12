@@ -64,6 +64,7 @@ public class DeveloperData implements ApplicationRunner {
         Random random = new Random();
 
         // Lav hoteller ud fra predefinerede lister. Navne er unikke. resten loopes tilfældigt igennem.
+        // listerne er definerede i samme pakke som DeveloperData
         for (int i = 0; i < HotelNameGenerator.HOTEL_NAMES.size(); i++) {
             String name = HotelNameGenerator.HOTEL_NAMES.get(i);
             String street = HotelStreetGenerator.STREETS.get(random.nextInt(HotelStreetGenerator.STREETS.size()));
@@ -79,7 +80,7 @@ public class DeveloperData implements ApplicationRunner {
         // Lav værelser til hvert hotel
         for (Hotel hotel : hotels) {
             List<Room> rooms = new ArrayList<>();
-            int numberOfRooms = 10 + random.nextInt(31); // Random number of rooms between 10 and 40
+            int numberOfRooms = 10 + random.nextInt(31); // Random antal af værelser mellem 10 og 40
             for (int i = 1; i <= numberOfRooms; i++) {
                 String roomNumber = String.valueOf(i);
                 int numberOfBeds = 1 + random.nextInt(4);
