@@ -5,11 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- Use the latest 3.1.x version -->
-        <!--This should be safe, since breaking changes should only happen in major releases
-        3.0.8 to 3.0.9 however did introduce several breaking changes
-        If this code fails, right after being cloned it was last tested with 3.1.2 -->
-        <version>[3.1.0,3.1.9]</version>
+        <version>[3.1.4]</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <!--Often a reversed company domain name, here you could use something like below -->
@@ -17,9 +13,9 @@
     <!-- The artifactId is the base package name used in the project -->
     <artifactId>exam</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Any name you like, that makes sense for the project</name>
+    <name>Exam</name>
     <description>
-        Add a description for your project there
+        Exam
     </description>
     <properties>
         <java.version>17</java.version>

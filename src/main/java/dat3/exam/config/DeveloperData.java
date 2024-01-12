@@ -47,7 +47,7 @@ public class DeveloperData implements ApplicationRunner {
     }
 
     private void setupDevData() {
-        Guest guest1 = new Guest("Guest1", passwordUsedByAll, "guest1@a.dk", "Hans", "Hansen", "12345678");
+        Guest guest1 = new Guest("Guest1", passwordUsedByAll, "guest1@kea.dk", "Hans", "Hansen", "12345678");
         guest1.addRole(Role.USER);
         guestRepository.save(guest1);
         UserWithRoles admin = new UserWithRoles("admin", passwordUsedByAll, "admin@a.dk");
