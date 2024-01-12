@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class DeveloperData implements ApplicationRunner {
@@ -29,6 +30,7 @@ public class DeveloperData implements ApplicationRunner {
     PasswordEncoder passwordEncoder;
     String passwordUsedByAll;
 
+
     public DeveloperData(UserWithRolesRepository userWithRolesRepository, GuestRepository guestRepository,
                          HotelRepository hotelRepository, ReservationRepository reservationRepository,
                          RoomRepository roomRepository, PasswordEncoder passwordEncoder) {
@@ -40,6 +42,7 @@ public class DeveloperData implements ApplicationRunner {
         this.passwordEncoder = passwordEncoder;
         passwordUsedByAll = "test12";
     }
+
 
     @Override
     public void run(ApplicationArguments args) {
@@ -56,65 +59,35 @@ public class DeveloperData implements ApplicationRunner {
 
 
         List<Hotel> hotels = new ArrayList<>();
-        Hotel hotel1 = new Hotel("Hotel 1", "Street 1", "City 1", "Zip 1", "Country 1");
-        hotels.add(hotel1);
-        Hotel hotel2 = new Hotel("Hotel 2", "Street 2", "City 2", "Zip 2", "Country 2");
-        hotels.add(hotel2);
-        Hotel hotel3 = new Hotel("Hotel 3", "Street 3", "City 3", "Zip 3", "Country 3");
-        hotels.add(hotel3);
-        Hotel hotel4 = new Hotel("Hotel 4", "Street 4", "City 4", "Zip 4", "Country 4");
-        hotels.add(hotel4);
-        Hotel hotel5 = new Hotel("Hotel 5", "Street 5", "City 5", "Zip 5", "Country 5");
-        hotels.add(hotel5);
+        Random random = new Random();
+
+        // Create hotels using the predefined lists
+        for (int i = 0; i < HotelNameGenerator.HOTEL_NAMES.size(); i++) {
+            String name = HotelNameGenerator.HOTEL_NAMES.get(i);
+            String street = HotelStreetGenerator.STREETS.get(random.nextInt(HotelStreetGenerator.STREETS.size()));
+            String city = HotelCityGenerator.CITIES.get(random.nextInt(HotelCityGenerator.CITIES.size()));
+            String zip = HotelZipGenerator.ZIPS.get(random.nextInt(HotelZipGenerator.ZIPS.size()));
+            String country = HotelCountryGenerator.COUNTRY_NAMES.get(random.nextInt(HotelCountryGenerator.COUNTRY_NAMES.size()));
+
+            hotels.add(new Hotel(name, street, city, zip, country));
+        }
 
         hotelRepository.saveAll(hotels);
 
+        // Create rooms for each hotel
         for (Hotel hotel : hotels) {
             List<Room> rooms = new ArrayList<>();
-            for (int i = 1; i <= 5; i++) {
+            int numberOfRooms = 10 + random.nextInt(31); // Random number of rooms between 10 and 40
+            for (int i = 1; i <= numberOfRooms; i++) {
                 String roomNumber = String.valueOf(i);
-                int numberOfBeds = i;
-
-                // find en måde at automatisere basePrice og bedPrice på
-
-                double basePrice = 100;
-                double bedPrice = 50;
-                Room room = new Room(roomNumber, numberOfBeds,basePrice,bedPrice, hotel);
+                int numberOfBeds = 1 + random.nextInt(4); // Random number of beds between 1 and 4
+                double basePrice = 500.0;
+                double bedPrice = 100.0;
+                Room room = new Room(roomNumber, numberOfBeds, basePrice, bedPrice, hotel);
                 rooms.add(room);
             }
             roomRepository.saveAll(rooms);
         }
-
-
-
-
-//        Random random = new Random();
-//        List<Hotel> hotels = new ArrayList<>();
-//
-//        for (int i = 1; i <= 250; i++) {
-//            String name = "Hotel " + i;
-//            String street = "Street " + i;
-//            String city = "City " + i;
-//            String zip = "Zip" + String.format("%05d", i);
-//            String country = "Country " + i;
-//
-//            Hotel hotel = new Hotel(name, street, city, zip, country);
-//            hotels.add(hotel);
-//        }
-//        hotelRepository.saveAll(hotels);
-//
-//        for (Hotel hotel : hotels) {
-//            int numberOfRooms = 10 + random.nextInt(31);
-//            List<Room> rooms = new ArrayList<>();
-//            for (int j = 1; j <= numberOfRooms; j++) {
-//                String roomNumber = Integer.toString(j);
-//                int numberOfBeds = 1 + random.nextInt(4);
-//                double price = Room.calculatePrice(numberOfBeds);
-//
-//                Room room = new Room(roomNumber, numberOfBeds, price, hotel);
-//                rooms.add(room);
-//            }
-//            roomRepository.saveAll(rooms);
     }
 }
 

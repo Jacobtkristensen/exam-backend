@@ -38,6 +38,8 @@ import java.util.List;
         public Room(String roomNumber, int numberOfBeds, double basePrice, double bedPrice, Hotel hotel) {
             this.roomNumber = roomNumber;
             this.numberOfBeds = numberOfBeds;
+            this.basePrice = basePrice;
+            this.bedPrice = bedPrice;
             this.price = calculatePrice(numberOfBeds, basePrice, bedPrice);
             this.hotel = hotel;
         }
