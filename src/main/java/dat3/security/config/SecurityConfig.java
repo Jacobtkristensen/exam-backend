@@ -38,7 +38,6 @@ import javax.crypto.spec.SecretKeySpec;
 @Configuration
 public class SecurityConfig {
 
-  //Remove default value below BEFORE deployment
   @Value("${app.secret-key}")
   private String tokenSecret;
 
@@ -68,6 +67,22 @@ public class SecurityConfig {
             //This is for demo purposes only, and should be removed for a real system
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/demo/anonymous")).permitAll()
 
+            //GUESTS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/guests")).permitAll()
+
+            //HOTELS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/hotels")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/hotels/{id}")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/hotels")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/hotels/{id}")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/api/hotels/{id}")).hasAuthority("ADMIN")
+
+            //ROOMS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/rooms")).hasAuthority("ADMIN")
+
+            //RESERVATIONS
+
+
             //Allow index.html and everything else on root level. So make sure to put ALL your endpoints under /api
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/*")).permitAll()
 
@@ -78,8 +93,8 @@ public class SecurityConfig {
             //.requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/admin-only")).hasAuthority("ADMIN")
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
-            .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
-            //.anyRequest().authenticated());
+            //.requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
+            .anyRequest().authenticated());
 
     return http.build();
   }
