@@ -18,6 +18,8 @@ public class HotelResponse {
     private String zip;
     private String country;
     private int noOfRooms;
+
+    //Response ved oprettelse af hotel
     public HotelResponse(Hotel hotel) {
         this.id = hotel.getId();
         this.name = hotel.getName();

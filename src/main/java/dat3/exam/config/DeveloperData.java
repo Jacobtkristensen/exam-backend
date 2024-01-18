@@ -2,6 +2,7 @@ package dat3.exam.config;
 
 import dat3.exam.entity.Guest;
 import dat3.exam.entity.Hotel;
+import dat3.exam.entity.Reservation;
 import dat3.exam.entity.Room;
 import dat3.exam.repository.GuestRepository;
 import dat3.exam.repository.HotelRepository;
@@ -15,6 +16,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -91,6 +93,21 @@ public class DeveloperData implements ApplicationRunner {
             }
             roomRepository.saveAll(rooms);
         }
+
+        //Lav reservationer
+        Hotel hotel = hotelRepository.findById(1).get();
+        Room room101 = new Room("101", 5, 500.0, 100.0, hotel);
+        roomRepository.save(room101);
+        LocalDate reservation1 = LocalDate.of(2024, 6, 1);
+        LocalDate reservation2 = LocalDate.of(2024, 6, 2);
+        String roomNumber = "101";
+        Guest guest = guestRepository.findByUsername("Guest1");
+        Room room = roomRepository.findByHotelAndRoomNumber(hotel, roomNumber);
+        Reservation reservationEt = new Reservation(reservation1, room, guest, hotel);
+        Reservation reservationTo = new Reservation(reservation2, room, guest, hotel);
+
+        reservationRepository.save(reservationEt);
+        reservationRepository.save(reservationTo);
     }
 }
 

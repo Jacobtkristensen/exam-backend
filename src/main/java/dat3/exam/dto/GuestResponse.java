@@ -18,6 +18,8 @@ public class GuestResponse {
     private String lastName;
     private String phoneNumber;
 
+    //Response ved oprettelse af bruger
+    //Guest -> GuestResponse
     public GuestResponse(Guest guest) {
         this.username = guest.getUsername();
         this.email = guest.getEmail();

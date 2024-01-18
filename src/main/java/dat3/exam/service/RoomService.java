@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class RoomService {
 
@@ -37,4 +39,9 @@ public class RoomService {
         return new RoomResponse(savedRoom);
     }
 
+    public List<RoomResponse> getAllRoomsByHotelId(int hotelId) {
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No hotel with this id found"));
+        return roomRepository.findAllByHotel(hotel).stream().map(room -> new RoomResponse(room)).toList();
+    }
 }

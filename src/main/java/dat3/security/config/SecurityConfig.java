@@ -79,8 +79,11 @@ public class SecurityConfig {
 
             //ROOMS
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/rooms")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/rooms/{id}")).hasAuthority("USER")
 
             //RESERVATIONS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")).hasAuthority("USER")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/my-reservations")).hasAuthority("USER")
 
 
             //Allow index.html and everything else on root level. So make sure to put ALL your endpoints under /api

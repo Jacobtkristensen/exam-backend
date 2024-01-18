@@ -18,6 +18,7 @@ public class RoomResponse {
     private double price;
     private int hotelId;
 
+    //Response ved oprettelse af værelse
     public RoomResponse(Room room) {
         this.id = room.getId();
         this.roomNumber = room.getRoomNumber();

@@ -25,11 +25,16 @@ public class Reservation extends AdminDetails {
     @ManyToOne
     private Guest guest;
 
-    public Reservation(LocalDate reservationDate, double price, Room room, Guest guest) {
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
+
+    public Reservation(LocalDate reservationDate, Room room, Guest guest, Hotel hotel) {
         this.reservationDate = reservationDate;
-        this.price = price;
         this.room = room;
         this.guest = guest;
+        this.hotel = hotel;
+        this.price = room.getPrice();
         guest.addReservation(this);
         room.addReservation(this);
     }

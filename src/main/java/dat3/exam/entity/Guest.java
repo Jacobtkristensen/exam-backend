@@ -21,13 +21,15 @@ public class Guest extends UserWithRoles {
     private String lastName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "guest")
-    private List<Reservation> reservations = new ArrayList<>();
+    @OneToMany(mappedBy = "guest", fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
 
     public void addReservation(Reservation reservation){
+        if(reservations == null) {
+            reservations = new ArrayList<>();
+        }
         reservations.add(reservation);
     }
-
     public Guest(String username, String password, String email, String firstname, String lastname, String phoneNumber) {
         super(username, password, email);
         this.firstName = firstname;

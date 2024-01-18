@@ -23,8 +23,9 @@ public class Hotel extends AdminDetails {
     private String zip;
     private String country;
 
-    @OneToMany(mappedBy = "hotel",  cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel",  cascade = CascadeType.REMOVE)
     private List<Room> rooms = new ArrayList<>();
+
 
     public Hotel(String name, String street, String city, String zip, String country) {
         this.name = name;

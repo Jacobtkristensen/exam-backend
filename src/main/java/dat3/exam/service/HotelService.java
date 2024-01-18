@@ -24,7 +24,6 @@ public class HotelService {
     public List<HotelResponse> getAllHotels() {
         return hotelRepository.findAll().stream().map(hotel -> new HotelResponse(hotel)).toList();
     }
-
     public HotelResponse getHotelById(int id) {
         return new HotelResponse(hotelRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No hotel with this id found")));
@@ -37,27 +36,33 @@ public class HotelService {
         Hotel newHotel = new Hotel(body.getName(), body.getStreet(), body.getCity(),body.getZip(),body.getCountry());
         return new HotelResponse(hotelRepository.save(newHotel));
     }
-
+    //Rediger hotel
     public HotelResponse editHotel(HotelRequest body, int id) {
+        //Tjek om hotel findes
+
         Hotel editHotel = hotelRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No hotel with this id found"));
-
+        //Tjek om request indeholder navn
         if (body.getName() != null) {
             editHotel.setName(body.getName());
         }
+        //Tjek om request indeholder street
         if (body.getStreet() != null) {
             editHotel.setStreet(body.getStreet());
         }
+        //Tjek om request indeholder city
         if (body.getCity() != null) {
             editHotel.setCity(body.getCity());
         }
+        //Tjek om request indeholder zip
         if (body.getZip() != null) {
             editHotel.setZip(body.getZip());
         }
+        //Tjek om request indeholder country
         if (body.getCountry() != null) {
             editHotel.setCountry(body.getCountry());
         }
-
+        //returner gemte hotel
         return new HotelResponse(hotelRepository.save(editHotel));
     }
 

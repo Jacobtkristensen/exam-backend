@@ -1,5 +1,6 @@
 package dat3.exam.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoomRequest {
-
-    //Request til at oprette et nyt hotel
-    private String roomNumber;
-    private int numberOfBeds;
-    private double basePrice;
-    private double bedPrice;
+public class ReservationRequest {
     private int hotelId;
+    private int roomNumber;
+    private String username;
+    private String reservationDate;
 }

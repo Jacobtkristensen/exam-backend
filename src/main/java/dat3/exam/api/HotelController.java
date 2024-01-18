@@ -18,6 +18,7 @@ public class HotelController {
     }
 
     //Anonymous, User, Admin
+    //Liste af hoteller
     @GetMapping
     public List<HotelResponse> getAllHotels(){
         return hotelService.getAllHotels();
@@ -25,24 +26,28 @@ public class HotelController {
 
 
     //Anonymous, User, Admin
+    //Specifik hotelinformation
     @GetMapping("/{id}")
     public HotelResponse getHotelById(@PathVariable int id){
         return hotelService.getHotelById(id);
     }
 
     //ADMIN
+    //Tilføj hotel
     @PostMapping
     public HotelResponse addHotel(@RequestBody HotelRequest body){
         return hotelService.addHotel(body);
     }
 
     //ADMIN
+    //Rediger hotel
     @PatchMapping("/{id}")
     public HotelResponse editHotel(@RequestBody HotelRequest body, @PathVariable int id){
         return hotelService.editHotel(body, id);
     }
 
     //ADMIN
+    //Slet hotel
     @DeleteMapping("/{id}")
     public HotelResponse deleteHotel(@PathVariable int id){
         return hotelService.deleteHotel(id);

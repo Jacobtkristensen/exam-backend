@@ -17,6 +17,7 @@ public class GuestController {
         this.guestService = guestService;
     }
     //Anonymous
+    //Oprettelse af bruger
     @PostMapping
     public GuestResponse createGuest(@RequestBody GuestRequest body){
         return guestService.createGuest(body);

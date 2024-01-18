@@ -28,13 +28,15 @@ import java.util.List;
         @JoinColumn(name = "hotel_id")
         private Hotel hotel;
 
-        @OneToMany(mappedBy = "room")
-        private List<Reservation> reservations = new ArrayList<>();
+        @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+        private List<Reservation> reservations;
 
-        public void addReservation(Reservation reservation){
-            reservations.add(reservation);
+    public void addReservation(Reservation reservation){
+        if(reservations == null) {
+            reservations = new ArrayList<>();
         }
-
+        reservations.add(reservation);
+    }
         public Room(String roomNumber, int numberOfBeds, double basePrice, double bedPrice, Hotel hotel) {
             this.roomNumber = roomNumber;
             this.numberOfBeds = numberOfBeds;

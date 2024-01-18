@@ -28,6 +28,7 @@ class GuestServiceTest {
 
     @Test
     void createGuest_Successful() {
+        //Arrange
         GuestRequest newGuestRequest = new GuestRequest();
         newGuestRequest.setUsername("newUser");
         newGuestRequest.setPassword("newPassword");
@@ -35,14 +36,19 @@ class GuestServiceTest {
         newGuestRequest.setFirstName("newFirstName");
         newGuestRequest.setLastName("newLastName");
         newGuestRequest.setPhoneNumber("newPhoneNumber");
+        //Act
         GuestResponse createdGuest = guestService.createGuest(newGuestRequest);
+
+        //Assert
         assertEquals("newUser", createdGuest.getUsername());
     }
     @Test
     void createGuest_ExistingUsername() {
+        //Arrange
         Guest existingGuest = new Guest("existingUser", "password", "email@example.com", "FirstName", "LastName", "12345678");
         guestRepository.save(existingGuest);
 
+        //Setup test-data
         GuestRequest newGuestRequest = new GuestRequest();
         newGuestRequest.setUsername("existingUser");
         newGuestRequest.setPassword("newPassword");
@@ -50,7 +56,7 @@ class GuestServiceTest {
         newGuestRequest.setFirstName("newFirstName");
         newGuestRequest.setLastName("newLastName");
         newGuestRequest.setPhoneNumber("newPhoneNumber");
-
+        //Assert
         assertThrows(ResponseStatusException.class, () -> {
             guestService.createGuest(newGuestRequest);
         }, "Guest already exists");

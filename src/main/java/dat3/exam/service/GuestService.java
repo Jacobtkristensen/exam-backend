@@ -18,6 +18,7 @@ public class GuestService {
         this.guestRepository = guestRepository;
     }
 
+    //Oprettelse af bruger (guest)
     public GuestResponse createGuest(GuestRequest body) {
         Guest guest = GuestRequest.getGuestEntity(body);
 

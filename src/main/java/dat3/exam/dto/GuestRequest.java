@@ -21,8 +21,8 @@ public class GuestRequest {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private List<Reservation> reservations;
 
+    //Konverterer GuestRequest til Guest
     public static Guest getGuestEntity(GuestRequest guestRequest){
         return new Guest(
                 guestRequest.username,
